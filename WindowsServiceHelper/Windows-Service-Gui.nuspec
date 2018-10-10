@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>ServiceProcess.Helpers</id>
-    <version>0.9.1.0</version>
+    <id>Windows.Service.Gui</id>
+    <version>2.0.0.0</version>
     <title>Windows Service Helper</title>
     <authors>Anderson Imes</authors>
     <owners />
-    <projectUrl>http://windowsservicehelper.codeplex.com/</projectUrl>
+    <projectUrl>https://github.com/wolfen351/windows-service-gui</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Helps Windows Service debugging by creating a Play/Stop/Pause UI when running with a debugger attached, but also allows the service to be installed and run by the Windows Services environment as well. All this with one line of code!</description>
     <summary />
