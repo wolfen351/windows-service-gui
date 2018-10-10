@@ -26,38 +26,37 @@ The easiest way to get Windows Service Helper in your project is to use the NuGe
 
 Simply make a few changes to the typical code in the "Program.cs" for your application:
 
-using System.ServiceProcess;
-using ServiceProcess.Helpers; //HERE
+	using System.ServiceProcess;
+	using ServiceProcess.Helpers; //HERE
 
-namespace DemoService
-{
-    static class Program
-    {
-        static void Main()
-        {
-            ServiceBase[] ServicesToRun;
+	namespace DemoService
+	{
+	    static class Program
+	    {
+		static void Main()
+		{
+		    ServiceBase[] ServicesToRun;
 
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new Service1() 
-			};
+		    ServicesToRun = new ServiceBase[] 
+				{ 
+					new Service1() 
+				};
 
-            //ServiceBase.Run(ServicesToRun);
-            ServicesToRun.LoadServices(); //AND HERE
-        }
-    }
-}
+		    //ServiceBase.Run(ServicesToRun);
+		    ServicesToRun.LoadServices(); //AND HERE
+		}
+	    }
+	}
 
 
 That's it!
 
 # Future Enhancements
 
-    NuGet package for easy inclusion in your project (Available now as ServiceProcess.Helpers)
-    Less ugly UI
-    More closely simulating the Windows Services environment and allowing calls like "RequestAdditionalTime" and enforcing timeouts.
-    .NET Framework 3.5 Support
-    Autostart preferences remembered across debugging sessions
+* NuGet package for easy inclusion in your project (Available now as ServiceProcess.Helpers)
+* Less ugly UI
+* More closely simulating the Windows Services environment and allowing calls like "RequestAdditionalTime" and enforcing timeouts.
+* .NET Framework 3.5 Support
 
 # Improve the code
 
