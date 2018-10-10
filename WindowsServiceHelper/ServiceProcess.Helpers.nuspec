@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ServiceProcess.Helpers</id>
+    <version>0.9.1.0</version>
+    <title>Windows Service Helper</title>
+    <authors>Anderson Imes</authors>
+    <owners />
+    <projectUrl>http://windowsservicehelper.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Helps Windows Service debugging by creating a Play/Stop/Pause UI when running with a debugger attached, but also allows the service to be installed and run by the Windows Services environment as well. All this with one line of code!</description>
+    <summary />
+    <tags>windows,service,debugging,debug</tags>
+    <dependencies>
+      <dependency id="reactiveui-xaml" version="2.3.2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ServiceProcess.Helpers.dll" target="lib\net40\ServiceProcess.Helpers.dll" />
+  </files>
+</package>
