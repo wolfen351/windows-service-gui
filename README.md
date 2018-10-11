@@ -51,9 +51,14 @@ Simply make a few changes to the typical code in the "Program.cs" for your appli
 
 That's it!
 
+# Nuget Package
+
+To install simply add the following nuget package:
+
+    install-package WindowsService.Gui
+
 # Future Enhancements
 
-* NuGet package for easy inclusion in your project (Available now as ServiceProcess.Helpers)
 * Less ugly UI
 * More closely simulating the Windows Services environment and allowing calls like "RequestAdditionalTime" and enforcing timeouts.
 * .NET Framework 3.5 Support
