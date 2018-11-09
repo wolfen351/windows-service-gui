@@ -56,6 +56,15 @@ That's it!
 To install simply add the following nuget package:
 
     install-package WindowsService.Gui
+    
+# Config Options - You can control all the behaviours:
+
+    serviceBases.LoadServices(
+        showGuiWhenDebuggerAttached:true,
+	showGuiWhenArgumentDetected:true,
+	argumentToDetect:"/startService",
+	startServiceImmediately:true
+	);
 
 # Future Enhancements
 
