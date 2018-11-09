@@ -14,18 +14,16 @@ namespace ServiceProcess.Helpers
     public static class ServiceRunner
     {
         /// <summary>
-        ///     Loads the services.
+        /// Loads the services.
         /// </summary>
         /// <param name="services">The services.</param>
-        /// <param name="startImmediatelyWhenShowingGui">
-        ///     if set to <c>true</c> start immediately when showing GUI - don't wait for
-        ///     start click
-        /// </param>
-        /// <param name="commandLineParamForAutoStart">The command line parameter to check for</param>
-        public static void LoadServices(this IEnumerable<ServiceBase> services, bool startImmediatelyWhenShowingGui = false,
-                                        string commandLineParamForAutoStart = null)
+        /// <param name="showGuiWhenDebuggerAttached">if set to <c>true</c> shows the GUI when debugger is attached.</param>
+        /// <param name="showGuiWhenArgumentDetected">if set to <c>true</c> shows GUI when argument detected (/startService) by default.</param>
+        /// <param name="argumentToDetect">The argument to detect. (/startService) by default</param>
+        /// <param name="startServiceImmediately">if set to <c>true</c> [start service immediately] - instead of waiting for click start.</param>
+        public static void LoadServices(this IEnumerable<ServiceBase> services, bool showGuiWhenDebuggerAttached = true, bool showGuiWhenArgumentDetected=false, string argumentToDetect = "/startService", bool startServiceImmediately = true)
         {
-            if (ShouldShowGui(commandLineParamForAutoStart))
+            if (ShouldShowGui(showGuiWhenDebuggerAttached, showGuiWhenArgumentDetected, argumentToDetect))
             {
                 Task t = Task.Factory.StartNew(
                     () =>
@@ -44,7 +42,7 @@ namespace ServiceProcess.Helpers
                                                  s =>
                                                  {
                                                      ServiceViewModel serviceViewModel = new ServiceViewModel(s);
-                                                     if (startImmediatelyWhenShowingGui)
+                                                     if (startServiceImmediately)
                                                      {
                                                          serviceViewModel.StartCommand.Execute(null);
                                                      }
@@ -66,29 +64,29 @@ namespace ServiceProcess.Helpers
             }
             else
             {
-                try
-                {
-                    ServiceBase.Run(services.ToArray());
-                }
-                catch (Exception ee)
-                {
-
-                }
+                ServiceBase.Run(services.ToArray());
             }
         }
 
-        private static bool ShouldShowGui(string commandLineParamForAutoStart)
+        /// <summary>
+        /// Decides if system should show the GUI or run in service mode
+        /// </summary>
+        /// <param name="showGuiWhenDebuggerAttached">if set to <c>true</c> [show GUI when debugger attached].</param>
+        /// <param name="showGuiWhenArgumentDetected">if set to <c>true</c> [show GUI when argument detected].</param>
+        /// <param name="argumentToDetect">The argument to detect.</param>
+        /// <returns><c>true</c> if GUI should be shown, <c>false</c> otherwise.</returns>
+        private static bool ShouldShowGui(bool showGuiWhenDebuggerAttached, bool showGuiWhenArgumentDetected, string argumentToDetect)
         {
-            //if (Debugger.IsAttached)
-            //{
-            //    return true;
-            //}
+            if (showGuiWhenDebuggerAttached && Debugger.IsAttached)
+            {
+                return true;
+            }
 
-            if (commandLineParamForAutoStart != null && Environment.GetCommandLineArgs()
+            if (showGuiWhenArgumentDetected && Environment.GetCommandLineArgs()
                                                                    .Any(
                                                                         x => string.Equals(
                                                                             x.ToLowerInvariant(),
-                                                                            commandLineParamForAutoStart,
+                                                                            argumentToDetect,
                                                                             StringComparison.InvariantCultureIgnoreCase)))
             {
                 return true;

@@ -18,7 +18,7 @@ namespace DemoService
 			};
            
             //ServiceBase.Run(ServicesToRun);
-            ServicesToRun.LoadServices(true, "/startservice");
+            ServicesToRun.LoadServices(true, true, "/startservice");
         }
     }
 }
