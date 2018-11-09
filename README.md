@@ -59,9 +59,7 @@ To install simply add the following nuget package:
 
 # Future Enhancements
 
-* Less ugly UI
 * More closely simulating the Windows Services environment and allowing calls like "RequestAdditionalTime" and enforcing timeouts.
-* .NET Framework 3.5 Support
 
 # Improve the code
 
