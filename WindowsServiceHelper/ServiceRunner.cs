@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
@@ -14,7 +15,7 @@ namespace ServiceProcess.Helpers
     {
         public static void LoadServices(this IEnumerable<ServiceBase> services, bool autoStartInDebugMode)
         {
-            if (Debugger.IsAttached)
+            if (ShouldStartServiceInstantly())
             {
                 Task t = Task.Factory.StartNew(
                     () =>
@@ -57,6 +58,13 @@ namespace ServiceProcess.Helpers
             {
                 ServiceBase.Run(services.ToArray());
             }
+        }
+
+        private static bool ShouldStartServiceInstantly()
+        {
+            if (Debugger.IsAttached) return true;
+            if (Environment.GetCommandLineArgs().Any(x=>x.ToLowerInvariant() == "/startservice")) return true;
+            return false;
         }
     }
 }
