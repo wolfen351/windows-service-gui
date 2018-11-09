@@ -13,9 +13,19 @@ namespace ServiceProcess.Helpers
 {
     public static class ServiceRunner
     {
-        public static void LoadServices(this IEnumerable<ServiceBase> services, bool autoStartInDebugMode)
+        /// <summary>
+        ///     Loads the services.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <param name="startImmediatelyWhenShowingGui">
+        ///     if set to <c>true</c> start immediately when showing GUI - don't wait for
+        ///     start click
+        /// </param>
+        /// <param name="commandLineParamForAutoStart">The command line parameter to check for</param>
+        public static void LoadServices(this IEnumerable<ServiceBase> services, bool startImmediatelyWhenShowingGui = false,
+                                        string commandLineParamForAutoStart = null)
         {
-            if (ShouldStartServiceInstantly())
+            if (ShouldShowGui(commandLineParamForAutoStart))
             {
                 Task t = Task.Factory.StartNew(
                     () =>
@@ -34,7 +44,7 @@ namespace ServiceProcess.Helpers
                                                  s =>
                                                  {
                                                      ServiceViewModel serviceViewModel = new ServiceViewModel(s);
-                                                     if (autoStartInDebugMode)
+                                                     if (startImmediatelyWhenShowingGui)
                                                      {
                                                          serviceViewModel.StartCommand.Execute(null);
                                                      }
@@ -56,14 +66,34 @@ namespace ServiceProcess.Helpers
             }
             else
             {
-                ServiceBase.Run(services.ToArray());
+                try
+                {
+                    ServiceBase.Run(services.ToArray());
+                }
+                catch (Exception ee)
+                {
+
+                }
             }
         }
 
-        private static bool ShouldStartServiceInstantly()
+        private static bool ShouldShowGui(string commandLineParamForAutoStart)
         {
-            if (Debugger.IsAttached) return true;
-            if (Environment.GetCommandLineArgs().Any(x=>x.ToLowerInvariant() == "/startservice")) return true;
+            //if (Debugger.IsAttached)
+            //{
+            //    return true;
+            //}
+
+            if (commandLineParamForAutoStart != null && Environment.GetCommandLineArgs()
+                                                                   .Any(
+                                                                        x => string.Equals(
+                                                                            x.ToLowerInvariant(),
+                                                                            commandLineParamForAutoStart,
+                                                                            StringComparison.InvariantCultureIgnoreCase)))
+            {
+                return true;
+            }
+
             return false;
         }
     }
