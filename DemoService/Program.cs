@@ -18,7 +18,13 @@ namespace DemoService
 			};
            
             //ServiceBase.Run(ServicesToRun);
-            ServicesToRun.LoadServices(true, true, "/startservice");
+            ServicesToRun.LoadServices(
+                showGuiWhenDebuggerAttached: true, 
+                showGuiWhenArgumentDetected: true, 
+                argumentToDetect: "/start", 
+                startServiceImmediatelyWhenDebuggerAttached: true,
+                startServiceImmediatelyWhenArgumentDetected: true
+                );
         }
     }
 }
