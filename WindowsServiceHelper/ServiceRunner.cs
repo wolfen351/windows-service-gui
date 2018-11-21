@@ -49,7 +49,7 @@ namespace ServiceProcess.Helpers
             {
                 ShowGUI(servicesAll, startServiceImmediately);
             }
-            // OPTION 2 - Run as a app WITHOUT the gui, but also not as a full windows service
+            // OPTION 2 - Run as an app WITHOUT the gui, but also not as a full windows service
             else if (startServiceImmediately)
             {
                 Task t = Task.Factory.StartNew(
@@ -62,7 +62,15 @@ namespace ServiceProcess.Helpers
                             servicesRunning++;
                         }
 
-                        WaitForAllServicesToExit(servicesAll, servicesRunning);
+                        try
+                        {
+                            WaitForAllServicesToExit(servicesAll, servicesRunning);
+                        }
+                        catch (Exception e) // above is a bit dodgy, so if it fails, just wait forever
+                        {
+                            while (true)
+                                Thread.Sleep(100);
+                        }
                     },
                     CancellationToken.None,
                     TaskCreationOptions.PreferFairness,
