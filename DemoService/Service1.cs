@@ -15,6 +15,12 @@ namespace DemoService
         public Service1()
         {
             InitializeComponent();
+            Timer t1 = new Timer(AutoStopCallback, null, 15000, -1); // auto stop in 15 seconds for testing
+        }
+
+        private void AutoStopCallback(object state)
+        {
+            Stop();
         }
 
         protected override void OnStart(string[] args)
@@ -26,6 +32,7 @@ namespace DemoService
         protected override void OnStop()
         {
             Thread.Sleep(2000);
+            base.OnStop();
         }
 
         protected override void OnContinue()
