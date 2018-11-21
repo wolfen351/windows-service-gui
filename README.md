@@ -59,12 +59,13 @@ To install simply add the following nuget package:
     
 # Config Options - You can control all the behaviours:
 
-    serviceBases.LoadServices(
-        showGuiWhenDebuggerAttached:true,
-	showGuiWhenArgumentDetected:true,
-	argumentToDetect:"/startService",
-	startServiceImmediately:true
-	);
+            ServicesToRun.LoadServices(
+                showGuiWhenDebuggerAttached: true, 
+                showGuiWhenArgumentDetected: true, 
+                argumentToDetect: "/start", 
+                startServiceImmediatelyWhenDebuggerAttached: true,
+                startServiceImmediatelyWhenArgumentDetected: true
+                );
 
 # Future Enhancements
 
