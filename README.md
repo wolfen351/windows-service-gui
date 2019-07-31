@@ -1,6 +1,6 @@
 # Source 
 
-A little library forked from windowsservicehelper for adding a gui in debug mode to windows services
+A little library forked from windowsservicehelper for adding an (optional) gui in debug mode to windows services. It allows you to "just press F5" and run the windows service already. 
 
 Please see original source for the original code: https://archive.codeplex.com/?p=windowsservicehelper
 
