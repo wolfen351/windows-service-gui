@@ -6,12 +6,14 @@ Please see original source for the original code: https://archive.codeplex.com/?
 
 # Overview 
 
-Helps by creating a Play/Stop/Pause UI when running with a debugger attached, but also allows the windows service to be installed and run by the Windows Services environment as well. All this with one line of code!
+Helps by creating a Play/Stop/Pause UI (or just running the service) when running with a debugger attached, but also allows the windows service to be installed and run by the Windows Services environment as well. All this with one line of code!
 
 # Project Description
 
-Helps by creating a Play/Stop/Pause UI when running with a debugger attached, but also allows the windows service to be installed and run by the Windows Services environment as well. All this with one line of code!
-What is Service Helper
+Helps by creating a Play/Stop/Pause UI (or just running the service) when running with a debugger attached, but also allows the windows service to be installed and run by the Windows Services environment as well. All this with one line of code!
+
+_What is Service Helper?_
+
 Being someone who writes Windows Services a lot, it can be frustrating to deal with the headaches involved in debugging services. Often it involves tricks, hacks, and partial workarounds to test all of your code. There is no "just hit F5" experience for Windows Services developers.
 
 Service Helper solves this by triggering a UI to be shown if a debugger is attached that simulates (as closely as possible) the Windows Services Environment.
@@ -57,14 +59,21 @@ To install simply add the following nuget package:
 
     install-package WindowsService.Gui
     
-# Config Options - You can control all the behaviours:
+# Config Options - You can control all the behaviours - including turning off the UI and just running it already:
 
+	    // GUI + Detect and start on: Command Line Arg + Debugger
             ServicesToRun.LoadServices(
                 showGuiWhenDebuggerAttached: true, 
                 showGuiWhenArgumentDetected: true, 
                 argumentToDetect: "/start", 
                 startServiceImmediatelyWhenDebuggerAttached: true,
                 startServiceImmediatelyWhenArgumentDetected: true
+                );
+		
+	    // No GUI + Start if debugger attached
+            ServicesToRun.LoadServices(
+                showGuiWhenDebuggerAttached: false, 
+                startServiceImmediatelyWhenDebuggerAttached: true,
                 );
 
 # Future Enhancements
